@@ -36,7 +36,7 @@ public class MainModel {
 			durchschnittsDWZ += oppmod.getDwz();
 			punkte += oppmod.getErgebnis();
 		}
-		durchschnittsDWZ = durchschnittsDWZ / opponents.size();
+		durchschnittsDWZ = Math.round(durchschnittsDWZ / opponents.size());
 		this.player.setDurchschnittderGegnerDWZ(durchschnittsDWZ);
 		this.player.setPunkte(punkte);
 		TurnierleistungModel turnierleistungModel = new TurnierleistungModel();

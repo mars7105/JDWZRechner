@@ -48,7 +48,7 @@ public class TurnierleistungModel {
 		// nach 4.7.2 We für bisher ungewertete Spieler
 		// Quelle:
 		// http://www.schachbund.de/id-47-die-berechnung-der-punkterwartung.html
-		double d = 0;
+
 		PlayerModel leistungszahlSpieler = new PlayerModel(player.getAge(), player.getOldDWZ(),
 				player.getNumberOfOpponents());
 		leistungszahlSpieler.setAge(player.getAge());
@@ -77,17 +77,18 @@ public class TurnierleistungModel {
 					diff = wertungsdifferenzenTabelle[WertungsdifferenzenTabelleModel.D][i];
 				}
 			}
-			leistungszahlSpieler.setOldDWZ((int) (leistungszahlSpieler.getDurchschnittderGegnerDWZ() + diff));
+			leistungszahlSpieler.setOldDWZ((int) Math.round(leistungszahlSpieler.getDurchschnittderGegnerDWZ() + diff));
 
 			double pD = 0;
 			int dwz = 0;
+			int d = 0;
 			// Dies ist die Iteration (laut 4.7.2.1.3 Verbesserte erste DWZ
 			// durch Iteration)
 			// hier für die Berechnung der Leistungszahl.
 			// http://www.schachbund.de/id-47-die-berechnung-der-punkterwartung.html
 
-//			do {
-				 for (int iteration = 0; iteration < 1000; iteration++) {
+			// do {
+			for (int iteration = 0; iteration < 1000; iteration++) {
 				// Berechnung der Punkteerwartung nach Tabelle Anhang 2.1
 				// Wahrscheinlichkeitstabelle
 				// http://www.schachbund.de/anhang-21.html
@@ -98,26 +99,27 @@ public class TurnierleistungModel {
 				// P(D) - Durchschnitt = (W - We) / n + 0,500
 				pD = (leistungszahlSpieler.getPunkte() - leistungszahlSpieler.getPunkterwartung()) / opponents.size()
 						+ 0.5;
-				pD = Math.round(100.0 * pD) / 100.0;
+				pD = (double) (Math.round(100.0 * pD)) / 100.0;
 				// In der Tabelle Anhang 2.2 Wertungsdifferenzen abhängig von
 				// den Gewinnprozenten P
 				// nach der Differenz den Wert herraus suchen
 				// http://www.schachbund.de/anhang-22.html
 				for (int i = 1; i < 100; i++) {
 					if (pD == wertungsdifferenzenTabelle[WertungsdifferenzenTabelleModel.P][i]) {
-						d = wertungsdifferenzenTabelle[WertungsdifferenzenTabelleModel.D][i];
+						d = (int) wertungsdifferenzenTabelle[WertungsdifferenzenTabelleModel.D][i];
 					}
 				}
 				// Formel Ro' = Ro + D
 				// http://www.schachbund.de/id-47-die-berechnung-der-punkterwartung.html
-				leistungszahlSpieler.setOldDWZ(dwz + (int) d);
+				leistungszahlSpieler.setOldDWZ(dwz + d);
 				// Abbruchbedingung wenn W und We (annähernd) gleich sind
 				// (Punkterwartung == Punkte)
 				// verursachte Fehler, deshalb habe ich sie durch eine For
 				// Schleife ersetzt
 				// http://www.schachbund.de/id-47-die-berechnung-der-punkterwartung.html
-//			} while ((Math.round(leistungszahlSpieler.getPunkte() * 10)
-//					/ 10) != (Math.round(leistungszahlSpieler.getPunkterwartung() * 10) / 10));
+				// } while ((Math.round(leistungszahlSpieler.getPunkte() * 100))
+				// != (Math.round(leistungszahlSpieler.getPunkterwartung() *
+				// 100)));
 			}
 		}
 		// Rückgabe der Leistungszahl

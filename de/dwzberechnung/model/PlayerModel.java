@@ -39,7 +39,7 @@ public class PlayerModel {
 
 	public void setFolgeDWZ(double folgeDWZ) {
 		this.folgeDWZ = folgeDWZ;
-		Math.round(this.folgeDWZ);
+//		Math.round(this.folgeDWZ);
 	}
 
 	public int getAge() {

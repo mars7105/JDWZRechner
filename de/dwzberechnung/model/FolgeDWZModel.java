@@ -1,4 +1,5 @@
 package de.dwzberechnung.model;
+
 //DWZ Rechner - Ein Programm zum Berechnen von DWZ Zahlen von Schach Turnieren
 //Copyright (C) 2015  Martin Schmuck m_schmuck@gmx.net
 //
@@ -31,6 +32,7 @@ public class FolgeDWZModel {
 	double punkterwartung;
 	double entwicklungskoeffizient;
 	double anzahlDerGegner;
+
 	public FolgeDWZModel(int oldDWZ, double punkte, double punkterwartung, double entwicklungskoeffizient,
 			double anzahlDerGegner) {
 		super();
@@ -40,12 +42,12 @@ public class FolgeDWZModel {
 		this.entwicklungskoeffizient = entwicklungskoeffizient;
 		this.anzahlDerGegner = anzahlDerGegner;
 		// Rn = Ro + 800 x (W - We) / (E + n)
-		folgeDWZ = oldDWZ + 800 * (punkte - punkterwartung) / (entwicklungskoeffizient + anzahlDerGegner);
+		folgeDWZ = this.oldDWZ
+				+ 800 * (this.punkte - this.punkterwartung) / (this.entwicklungskoeffizient + this.anzahlDerGegner);
 	}
+
 	public double getFolgeDWZ() {
-		return folgeDWZ;
+		return Math.round(folgeDWZ);
 	}
-	
-	
 
 }
