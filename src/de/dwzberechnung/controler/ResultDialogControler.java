@@ -57,7 +57,7 @@ public class ResultDialogControler implements ActionListener {
 	}
 
 	private void makeDWZErgebnisView() {
-
+		mainControl.getMainModel().calculateDWZ();
 		PlayerModel pmodel = mainControl.getMainModel().getPlayer();
 		String punkterwartung = myFormatterDoubleB.format(pmodel.getPunkterwartung());
 		String punkte = myFormatterDouble.format(pmodel.getPunkte());

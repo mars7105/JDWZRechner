@@ -3,8 +3,11 @@
  */
 package de.dwzberechnung.controler;
 
+import javax.swing.JFrame;
+
 import de.dwzberechnung.model.MainModel;
 import de.dwzberechnung.view.MainWindowView;
+
 //DWZ Rechner - Ein Programm zum Berechnen von DWZ Zahlen von Schach Turnieren
 //Copyright (C) 2015  Martin Schmuck m_schmuck@gmx.net
 //
@@ -45,10 +48,14 @@ public class MainControler {
 	}
 
 	public void showWindow() {
+		
 		try {
 			frame = new MainWindowView();
+			// Make sure we have nice window decorations.
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			frame.setVisible(true);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,6 +1,7 @@
-package de.dwzberechnung.model_old;
+package de.dwzberechnung.model;
 
 import java.util.ArrayList;
+
 //DWZ Rechner - Ein Programm zum Berechnen von DWZ Zahlen von Schach Turnieren
 //Copyright (C) 2015  Martin Schmuck m_schmuck@gmx.net
 //
@@ -16,18 +17,26 @@ import java.util.ArrayList;
 //
 //You should have received a copy of the GNU General Public License
 //along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/**
+ * @author mars
+ *
+ */
 public class CalculateWahrscheinlichkeitModel {
 	private double[][] wahrscheinlichkeitsTabelle;
 	private PlayerModel player;
 	private ArrayList<OpponentModel> opponents;
 
 	/**
-	 * Konrtuktor mit Parameter die Wahrscheinlichkeitstabelle wird per
-	 * Parameter übergeben
+	 * Konrtuktor mit Parameter die Wahrscheinlichkeitstabelle wird per Parameter
+	 * übergeben
 	 * 
 	 * @param wahrscheinlichkeitsTabelle
 	 */
 
+	/**
+	 * @param player
+	 * @param opponents
+	 */
 	public CalculateWahrscheinlichkeitModel(PlayerModel player, ArrayList<OpponentModel> opponents) {
 		super();
 		this.player = player;
@@ -45,12 +54,12 @@ public class CalculateWahrscheinlichkeitModel {
 
 		}
 		this.player.setPunkterwartung(punkterwartung);
-//		this.player.setNumberOfOpponents(this.opponents.size());
+		// this.player.setNumberOfOpponents(this.opponents.size());
 	}
 
 	/**
-	 * * Dies ist die Hauptroutine in der die Gewinnerwartung anhand der Tabelle
-	 * vom DSB (http://www.schachbund.de/anhang-21.html) errechnet wird.
+	 * * Dies ist die Hauptroutine in der die Gewinnerwartung anhand der Tabelle vom
+	 * DSB (http://www.schachbund.de/anhang-21.html) errechnet wird.
 	 * 
 	 * @param dwzPlayer
 	 *            : Die DWZ des Spielers
@@ -63,7 +72,7 @@ public class CalculateWahrscheinlichkeitModel {
 		// die Variablen mit korrektenen Werten
 		int spielerStaerke = KonstantenModel.DWZ_IST_BESSER;
 		int dwzDifferenz = 0;
-		double gewinnErwartungPD = 0.50;
+		double gewinnErwartungPD = 0.500;
 		boolean allesInOrdnung = false;
 
 		if (dwzPlayer > dwzOpponent) {
@@ -105,7 +114,7 @@ public class CalculateWahrscheinlichkeitModel {
 			// Wenn die DWZ Differenz größer als 735 ist, dann ist die
 			// Wahrscheinlichkeit gleich eins (100%)
 			if (spielerStaerke == KonstantenModel.DWZ_IST_BESSER) {
-			gewinnErwartungPD = 1.0;
+				gewinnErwartungPD = 1.0;
 			} else {
 				gewinnErwartungPD = 0.0;
 			}

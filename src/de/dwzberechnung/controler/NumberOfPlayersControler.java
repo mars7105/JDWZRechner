@@ -17,6 +17,7 @@ import de.dwzberechnung.view.MainWindowView;
 import de.dwzberechnung.view.NumberOfPlayersView;
 import de.dwzberechnung.view.OldDWZView;
 import de.dwzberechnung.view.PanelButtonView;
+
 //DWZ Rechner - Ein Programm zum Berechnen von DWZ Zahlen von Schach Turnieren
 //Copyright (C) 2015  Martin Schmuck m_schmuck@gmx.net
 //
@@ -106,19 +107,27 @@ public class NumberOfPlayersControler implements ActionListener {
 			numberOfPlayers = 1 + numberOfPlayersView.getNumberOfPlayersTextField().getSelectedIndex();
 			age = ageOfPlayerView.getAgeOfPlayer().getSelectedIndex();
 			try {
-				dwzOfPlayer = Integer.parseInt(oldDWZView.getOldDWZTextField().getText());
-				if (dwzOfPlayer >= 0 && dwzOfPlayer <= 3000) {
+				if (oldDWZView.getOldDWZTextField().getText().equals("")) {
 					this.mainControl.setAge(age);
-					this.mainControl.setOldDWZ(dwzOfPlayer);
+					this.mainControl.setOldDWZ(0);
 					this.mainControl.setNumberOfPlayers(numberOfPlayers);
 					saveApplicationProps();
 					this.mainControl.setDwzInputController(new DWZInputControler(this.mainControl));
 				} else {
-					JOptionPane.showMessageDialog(null,
-							"Die DWZ muss eine Ganzzahl sein " + "und zwischen 0 und 3000 liegen.", "Fehler!",
-							JOptionPane.WARNING_MESSAGE);
-					oldDWZView.getOldDWZTextField().setText(null);
-					oldDWZView.getOldDWZTextField().grabFocus();
+					dwzOfPlayer = Integer.parseInt(oldDWZView.getOldDWZTextField().getText());
+					if (dwzOfPlayer >= 0 && dwzOfPlayer <= 3000) {
+						this.mainControl.setAge(age);
+						this.mainControl.setOldDWZ(dwzOfPlayer);
+						this.mainControl.setNumberOfPlayers(numberOfPlayers);
+						saveApplicationProps();
+						this.mainControl.setDwzInputController(new DWZInputControler(this.mainControl));
+					} else {
+						JOptionPane.showMessageDialog(null,
+								"Die DWZ muss eine Ganzzahl sein " + "und zwischen 0 und 3000 liegen.", "Fehler!",
+								JOptionPane.WARNING_MESSAGE);
+						oldDWZView.getOldDWZTextField().setText(null);
+						oldDWZView.getOldDWZTextField().grabFocus();
+					}
 				}
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null,
